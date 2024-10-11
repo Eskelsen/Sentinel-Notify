@@ -1,0 +1,16 @@
+{
+    "name": "eskelsen/sentinel-unotify",
+    "description": "Source code-based periodic notification management system",
+    "type": "project",
+    "require": {
+        "phpmailer/phpmailer": "dev-master"
+    },
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Eskelsen",
+            "email": "dev@microframeworks.com"
+        }
+    ],
+    "minimum-stability": "dev"
+}
