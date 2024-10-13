@@ -22,11 +22,11 @@ composer install
 
 Acompanhe os logs em micrologs.txt e errors.txt. Remova esses arquivos periodicamente.
 
-### Sobre
+## Sobre
 
 Baseado num downgrade do Microframework 0.5.3 *Viewer* de domingo, 5 de fevereiro de 2023. Blumenau.
 
-### Contato
+## Contato
 
 - Email: dev@microframeworks.com
 - Site: https://microframeworks.com
