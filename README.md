@@ -7,7 +7,7 @@ Um arquivo app/map.php deve ser criado a partir do app/map.lock e configurado de
 
 ```shell
 cp app/map.lock app/map.php
-```shell
+```
 
 ### Sobre
 

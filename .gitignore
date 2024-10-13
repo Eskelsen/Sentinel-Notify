@@ -7,3 +7,6 @@ micrologs.txt
 
 app/build/*.php
 !app/build/example.php
+
+app/templates/*.html
+!app/templates/example.html
