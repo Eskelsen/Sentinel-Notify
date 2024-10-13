@@ -3,3 +3,7 @@
 app/map.php
 
 errors.txt
+micrologs.txt
+
+app/build/*.php
+!app/build/example.php

@@ -14,11 +14,10 @@ include APP . 'map.php';
 # Engine
 include APP . 'engine.php';
 
-if (empty($_GET['token']) OR $_GET['token']!=='271ac816e25a3b657b1fbb3f752c7374bc67f364') {
-	exit('Sem o token.');
+if (empty($_GET['token']) OR $_GET['token']!==TOKEN) {
+	microlog('Token ausente ou inválido.');
+	exit('Token ausente ou inválido.');
 }
-
-vd(date('Y-m-d H:i:s'));
 
 # Stare at Clock
 foreach ($map as $build => $cond) {

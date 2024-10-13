@@ -2,6 +2,9 @@
 
 # Map
 
+# Use url_do_servico/?token=seu_token
+define('TOKEN', 'seu_token');
+
 /**
  * Exemplo: pode se usar qualquer unidade de data entre os caracteres interpretados na convenção usada pelo PHP
 */
@@ -13,4 +16,4 @@ $map['example'] = [
 	'm' => 1	# Mês
 ];
 
-$map['all_time'] = []; # Pra executar todas as vezes, basta deixar vazio
+$map['all_time'] = []; # Pra executar todas as vezes, basta deixar vazio (all_time é um exemplo inexistente)
