@@ -12,3 +12,5 @@ $map['example'] = [
 	'w' => 1,	# Dia da semana 0-7 (dom-dom)
 	'm' => 1	# Mês
 ];
+
+$map['all_time'] = []; # Pra executar todas as vezes, basta deixar vazio

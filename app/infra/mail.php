@@ -23,7 +23,7 @@ function sendMail($email,$title,$html,$others = false){
 		return false;
 	}
 	
-	[$smtp, $port, $username, $useremail, $password, $userlabel] = [SMTP,465,EMAIL,EMAIL,PSWD,'Sentinel Notify'];
+	[$smtp, $port, $username, $useremail, $password] = [SMTP,465,EMAIL,EMAIL,PSWD];
 	
     $mail = new PHPMailer(true);
 
@@ -39,8 +39,10 @@ function sendMail($email,$title,$html,$others = false){
     $mail->SMTPSecure = ($port==465) ? PHPMailer::ENCRYPTION_SMTPS : true;
 	
     $mail->Port = $port;
+	
+	$sendername = $others['sendername'] ?? 'Microframeworks';
 
-    $mail->setFrom($useremail, $userlabel);
+    $mail->setFrom($useremail, $sendername);
 	
 	if (empty($others['name'])) {
 		$mail->addAddress($email);
@@ -49,7 +51,7 @@ function sendMail($email,$title,$html,$others = false){
 		$mail->addAddress($email, formatName($others['name']));
 	}
 	
-    $mail->addReplyTo($useremail, $userlabel);
+    $mail->addReplyTo($useremail, $sendername);
 
 	if (!empty($others['attachment']) AND is_array($others['attachment'])) {
 		[$filepath, $filename] = array_values($others['attachment']);

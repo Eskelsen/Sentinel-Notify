@@ -2,10 +2,10 @@
 
 # Example
 
-include INFRA . 'mail.php';
-return;
-$email = 'eskelsen@yahoo.com';
-$title = 'Teste do Sentinel Unotify';
-$html  = file_get_contents(TMPLTS . 'example.html');
+// include INFRA . 'mail.php';
 
-$sent = sendMail($email,$title,$html);
+// $email = 'eskelsen@yahoo.com';
+// $title = 'Teste do Sentinel Unotify';
+// $html  = file_get_contents(TMPLTS . 'example.html');
+
+// $sent = sendMail($email,$title,$html);
