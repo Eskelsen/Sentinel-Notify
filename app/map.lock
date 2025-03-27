@@ -2,7 +2,7 @@
 
 # Map
 
-# Use url_do_servico/?token=seu_token
+# Proteção: use url_do_servico/?token=seu_token :: https://microframeworks.com/tools/sentinel-notify/
 define('TOKEN', 'seu_token');
 
 /**
