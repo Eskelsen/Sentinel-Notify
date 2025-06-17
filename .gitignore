@@ -10,3 +10,5 @@ app/build/*.php
 
 app/templates/*.html
 !app/templates/example.html
+
+/tests/

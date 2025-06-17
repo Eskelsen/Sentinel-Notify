@@ -7,13 +7,28 @@ define('TOKEN', 'seu_token');
 
 /**
  * Exemplo: pode se usar qualquer unidade de data entre os caracteres interpretados na convenção usada pelo PHP
+ *
+ * Como as chaves são "condição", então deve-se deixar vazio para "qualquer", isso é, para todos os meses do ano, não incluir 'm'
+ *
+ * O cron roda a cada minuto, então o ideal é especificar um minuto porque senão o sistema enviará a cada minuto daquele intervalo de tempo
+ *
+ * O mesmo vale para horas, se não especificar, o envio será em todas as horas que se enquadrarem nas condições
 */
 
 $map['example'] = [
-	'i' => 0,	# Minuto 0
-	'H' => 12,	# Às 12 horas
-	'w' => 1,	# Dia da semana 0-7 (dom-dom)
-	'm' => 1	# Mês
+	'final' => '2025-12-31',	# Data final: basta omitir pra tempo indeterminado
+	'i' => 0,		# Minuto 0
+	'H' => 12,		# Às 12 horas
+	'w' => 1,		# Dia da semana 0-7 (dom-dom): segunda no caso (1)
+	'Y' => 2025, 	# Ano: este só roda em 2025
+	'm' => 1		# Mês (1-12): janeiro no caso
+];
+
+$map['example_multiple'] = [
+	'i' => [0,30],	# Minuto 0 e minuto 30
+	'H' => [12,18],	# Às 12 e às 18 horas
+	'w' => [1,3,5],	# Dia da semana 0-7 (dom-dom): segunda, quarta e sexta no caso (1,3,5)
+	'm' => [4,8,12] # Mês (1-12): abril, agosto e dezembro no caso
 ];
 
 $map['all_time'] = []; # Pra executar todas as vezes, basta deixar vazio (all_time é um exemplo inexistente)
