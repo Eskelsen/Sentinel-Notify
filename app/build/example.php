@@ -2,7 +2,7 @@
 
 # Example
 
-include INFRA . 'mail.php';
+include_once INFRA . 'mail.php';
 
 $email = 'email@email.com';
 $title = 'Teste do Sentinel Unotify';
