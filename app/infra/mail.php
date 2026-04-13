@@ -10,10 +10,6 @@ use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
 use PHPMailer\PHPMailer\SMTP;
 
-define('SMTP',	'smtp.hostinger.com');
-define('EMAIL',	'contato@microframeworks.com');
-define('PSWD',	'Dan2103Gi$');
-
 function sendMail($email,$title,$html,$others = false){
 	
 	$email = filterEmail($email);

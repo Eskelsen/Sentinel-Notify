@@ -1,5 +1,7 @@
 /vendor/
 
+env.php
+
 app/map.php
 
 errors.txt

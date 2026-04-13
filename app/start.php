@@ -7,6 +7,7 @@ ob_start();
 
 # Hub, Routes & Basics
 include APP . 'hub.php';
+include APP . 'env.php';
 
 # Map Tasks
 include APP . 'map.php';
