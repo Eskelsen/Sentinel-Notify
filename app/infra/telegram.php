@@ -1,9 +1,9 @@
 <?php
 
-function tgSendMgs($chat_id, $msg, $tkn){
-	$url = 'https://api.telegram.org/bot' . $tkn . '/sendMessage';
+function tgSendMgs($msg){
+	$url = 'https://api.telegram.org/bot' . TG_TOKEN . '/sendMessage';
 	$data = [
-		'chat_id' => $chat_id,
+		'chat_id' => TG_CHAT,
 		'text' 	  => $msg,
 		'parse_mode' => 'HTML'
 	];
