@@ -1,6 +1,7 @@
 {
   "name": "example-telegram",
   "description": "Exemplo de reminder de Telegram",
+  "final": "2026-04-16",
   "i": 30,
   "H": 8,
   "d": [
