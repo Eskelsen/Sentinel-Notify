@@ -1,8 +1,10 @@
 /vendor/
 
-env.php
+app/env.php
 
 app/map.php
+app/reminders/*.json
+!app/reminders/example-*.json
 
 errors.txt
 micrologs.txt
@@ -14,3 +16,5 @@ app/templates/*.html
 !app/templates/example.html
 
 /tests/
+
+.codex

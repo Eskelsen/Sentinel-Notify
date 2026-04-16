@@ -7,16 +7,19 @@ Source code-based periodic notification management system
 git clone -b master --single-branch git@github.com:Eskelsen/Sentinel-Notify.git .
 ```
 
-Um arquivo app/map.php deve ser criado a partir do app/map.lock e configurado conforme necessário:
+Um arquivo `app/env.php` deve ser criado a partir do `app/env.lock` e configurado conforme necessário, incluindo o `TOKEN` de acesso:
 
 ```shell
-cp app/map.lock app/map.php
+cp app/env.lock app/env.php
 ```
 
 É necessário rodar o composer para o serviço de e-mails:
 ```shell
 composer install
 ```
+
+Os lembretes passam a ser definidos em arquivos JSON dentro de `app/reminders/`.
+Os arquivos `example-*.json` servem de modelo e podem ser duplicados para lembretes reais.
 
 ## Manutenção
 

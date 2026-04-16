@@ -1,0 +1,16 @@
+{
+  "name": "example-telegram",
+  "description": "Exemplo de reminder de Telegram",
+  "i": 30,
+  "H": 8,
+  "d": [
+    1,
+    15
+  ],
+  "operations": [
+    {
+      "type": "telegram",
+      "message": "Lembrete de exemplo enviado pelo Sentinel Notify."
+    }
+  ]
+}

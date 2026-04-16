@@ -1,0 +1,24 @@
+{
+  "name": "example-multi",
+  "description": "Exemplo com e-mail e Telegram no mesmo reminder",
+  "final": "2026-12-31",
+  "i": [
+    0,
+    30
+  ],
+  "H": 12,
+  "w": 1,
+  "operations": [
+    {
+      "type": "telegram",
+      "message": "Reminder combinado executado."
+    },
+    {
+      "type": "email",
+      "email": "email@email.com",
+      "title": "Reminder combinado",
+      "message": "Este reminder executou duas operações.",
+      "is_html": false
+    }
+  ]
+}
