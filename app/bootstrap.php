@@ -13,9 +13,6 @@ if (!defined('SENTINEL_BOOTSTRAPPED')) {
 	if (is_file(APP . 'env.php')) {
 		include_once APP . 'env.php';
 	}
-	if (is_file(APP . 'map.php')) {
-		include_once APP . 'map.php';
-	}
 	include_once PACKS . 'jsonfy.php';
 
 	# Engine principal

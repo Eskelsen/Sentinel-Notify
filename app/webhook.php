@@ -12,6 +12,7 @@ function webhookJsonResponse($data, $status = 200){
 
 function webhookReadPayload(){
 	$raw = file_get_contents('php://input');
+    microlog('webhookReadPayload: ' . $raw);
 	$data = json_decode((string) $raw, true);
 	return is_array($data) ? $data : [];
 }

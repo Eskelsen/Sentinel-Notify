@@ -5,8 +5,8 @@
 include APP . 'bootstrap.php';
 
 if (!defined('TOKEN')) {
-	microlog('Constante TOKEN ausente em app/env.php ou app/map.php.');
-	exit('Constante TOKEN ausente em app/env.php ou app/map.php.');
+	microlog('Constante TOKEN ausente em app/env.php.');
+	exit('Constante TOKEN ausente em app/env.php.');
 }
 
 if (empty($_GET['token']) OR $_GET['token']!==TOKEN) {
@@ -14,5 +14,4 @@ if (empty($_GET['token']) OR $_GET['token']!==TOKEN) {
 	exit('Token ausente ou inválido.');
 }
 
-# Run Reminders
 runReminders();
