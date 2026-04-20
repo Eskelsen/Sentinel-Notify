@@ -183,7 +183,7 @@ function handleTelegramWebhook(){
 			'chat_id' => $chatId,
 			'parse_mode' => false
 		]);
-		return webhookJsonResponse(['ok' => false, 'message' => $e->getMessage()], 500);
+		return webhookJsonResponse(['ok' => true, 'message' => 'Algum problema, mas foi do lado de cá.']);
 	}
 }
 
