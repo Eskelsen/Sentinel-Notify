@@ -43,7 +43,7 @@ function openaiReminderSchema(){
 				]
 			]
 		],
-		'required' => ['name', 'description', 'enabled', 'operations'],
+		'required' => ['name', 'description', 'enabled', 'final', 'i', 'H', 'd', 'm', 'w', 'Y', 'operations'],
 		'additionalProperties' => false
 	];
 }

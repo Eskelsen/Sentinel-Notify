@@ -109,7 +109,7 @@ function reminderNormalizePayload($payload, $chatId){
 		'parse_mode' => false
 	];
 
-	return $normalized;
+	return array_filter($normalized);
 }
 
 function reminderFileName($name){
