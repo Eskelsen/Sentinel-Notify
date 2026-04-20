@@ -36,21 +36,14 @@ function openaiReminderSchema(){
 							'type' => 'string',
 							'enum' => ['telegram']
 						],
-						'message' => ['type' => 'string'],
-						'chat_id' => [
-							'anyOf' => [
-								['type' => 'string'],
-								['type' => 'integer']
-							]
-						],
-						'parse_mode' => ['type' => 'boolean']
+						'message' => ['type' => 'string']
 					],
-					'required' => ['type', 'message', 'chat_id', 'parse_mode'],
+					'required' => ['type', 'message'],
 					'additionalProperties' => false
 				]
 			]
 		],
-		'required' => ['name', 'description', 'enabled', 'final', 'i', 'H', 'd', 'm', 'w', 'Y', 'operations'],
+		'required' => ['name', 'description', 'enabled', 'operations'],
 		'additionalProperties' => false
 	];
 }
@@ -103,7 +96,7 @@ function openaiExtractReminder($request){
 	if (!defined('OPENAI_API_KEY') || !OPENAI_API_KEY) {
 		throw new RuntimeException('Constante OPENAI_API_KEY ausente em app/env.php.');
 	}
-
+    microlog('openai in: ' . json_pretty($request));
 	$payload = [
 		'model' => defined('OPENAI_MODEL') && OPENAI_MODEL ? OPENAI_MODEL : 'gpt-4o-mini',
 		'input' => [
@@ -140,7 +133,7 @@ function openaiExtractReminder($request){
 	]);
 
 	$response = curl_exec($curl);
-    microlog('openai: ' . $response);
+    microlog('openai out: ' . $response);
 	$error = curl_error($curl);
 	$status = (int) curl_getinfo($curl, CURLINFO_RESPONSE_CODE);
 	curl_close($curl);

@@ -109,10 +109,6 @@ function reminderNormalizePayload($payload, $chatId){
 		'parse_mode' => false
 	];
 
-	if (!isset($normalized['i']) || !isset($normalized['H'])) {
-		throw new InvalidArgumentException('Reminder precisa definir ao menos hora e minuto.');
-	}
-
 	return $normalized;
 }
 
@@ -124,21 +120,6 @@ function reminderFileName($name){
 		return $path;
 	}
 	return REMINDERS . date('Ymd-His') . '-' . $base . '-' . substr(md5(uniqid((string) mt_rand(), true)), 0, 6) . '.json';
-}
-
-function reminderScheduleSummary($reminder){
-	$parts = [];
-	foreach (['Y', 'm', 'd', 'H', 'i', 'w'] as $key) {
-		if (!array_key_exists($key, $reminder)) {
-			continue;
-		}
-		$value = $reminder[$key];
-		$parts[] = $key . '=' . (is_array($value) ? implode(',', $value) : $value);
-	}
-	if (!empty($reminder['final'])) {
-		$parts[] = 'final=' . $reminder['final'];
-	}
-	return implode(' | ', $parts);
 }
 
 function reminderCreateFromTelegramText($text, $chatId){
@@ -185,11 +166,9 @@ function handleTelegramWebhook(){
 	}
 
 	try {
+        
 		$created = reminderCreateFromTelegramText($text, $chatId);
-		$summary = reminderScheduleSummary($created['reminder']);
-		$reply = "Lembrete salvo com sucesso.\n" .
-			'Arquivo: ' . basename($created['file']) . "\n" .
-			($summary ? 'Agenda: ' . $summary : 'Agenda criada.');
+		$reply = 'Lembrete salvo com sucesso.';
 
 		tgSendMgs($reply, [
 			'chat_id' => $chatId,
