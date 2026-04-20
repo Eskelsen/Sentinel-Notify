@@ -108,7 +108,7 @@ function dispatchReminderTelegram($name, $operation){
 		return false;
 	}
 	include_once INFRA . 'telegram.php';
-	return (bool) tgSendMgs($message);
+	return (bool) tgSendMgs($message, $operation);
 }
 
 function timeMatchVerify($time, $value){

@@ -1,14 +1,27 @@
 <?php
 
-function tgSendMgs($msg){
+function tgSendMgs($msg, $options = []){
+	$chatId = $options['chat_id'] ?? (defined('TG_CHAT') ? TG_CHAT : null);
+	if (empty($chatId)) {
+		error_log(json_encode(['status' => false, 'message' => 'TG_CHAT ausente']));
+		return false;
+	}
+
 	$url = 'https://api.telegram.org/bot' . TG_TOKEN . '/sendMessage';
 	$data = [
-		'chat_id' => TG_CHAT,
-		'text' 	  => $msg,
-		'parse_mode' => 'HTML'
+		'chat_id' => $chatId,
+		'text' 	  => $msg
 	];
 
-    $curl = curl_init();
+	if (array_key_exists('parse_mode', $options)) {
+		if ($options['parse_mode']) {
+			$data['parse_mode'] = $options['parse_mode'];
+		}
+	} else {
+		$data['parse_mode'] = 'HTML';
+	}
+
+	$curl = curl_init();
 	$data = is_string($data) ? $data : json_encode($data);
 	
 	$headers = [
