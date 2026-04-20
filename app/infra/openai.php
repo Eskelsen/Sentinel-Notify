@@ -55,19 +55,11 @@ function openaiReminderSchema(){
 	];
 }
 
-function openaiReminderExamples(){
-	$examples = [];
-	foreach (glob(REMINDERS . 'example-*.json') ?: [] as $file) {
-		$examples[basename($file)] = jsonRead($file);
-	}
-	return $examples;
-}
-
 function openaiReminderSystemPrompt(){
+
 	$now = date('Y-m-d H:i:s');
 	$timezone = date_default_timezone_get();
 	$mapLock = is_file(APP . 'map.lock') ? trim(file_get_contents(APP . 'map.lock')) : '';
-	$examples = openaiReminderExamples();
 
 	return implode("\n\n", [
 		'Voce converte pedidos em linguagem natural para arquivos JSON de lembretes do sistema Sentinel Notify.',
@@ -75,21 +67,35 @@ function openaiReminderSystemPrompt(){
 		"Timezone do servidor: {$timezone}.",
 		'Regras obrigatorias:',
 		'- Responda apenas com JSON valido seguindo o schema.',
-		'- Todos os campos do schema devem existir; quando um campo de agenda nao se aplicar, use null.',
-		'- O reminder deve ser salvo diretamente em app/reminders e executado pelo cron atual.',
-		'- Use operacao do tipo telegram.',
-		'- O campo operations[0].chat_id deve preservar exatamente o chat_id recebido.',
+		'- Se um campo de tempo não existir, não inclua na resposta.',
+		'- Respeite os padrões ECMA-404 e UTF-8',
 		'- Use parse_mode=false para texto puro e evitar problemas com HTML.',
 		'- Para lembrete unico, calcule uma data/horario exatos usando Y, m, d, H, i e final na mesma data.',
 		'- O campo final deve ser inclusivo e usar formato YYYY-MM-DD.',
 		'- O campo message deve conter apenas a mensagem final que sera enviada no horario do lembrete.',
 		'- O campo name deve ser curto e em formato slug simples.',
 		'- Nao invente horarios ausentes; se o pedido estiver incompleto, assuma o horario relativo mais direto descrito pelo usuario.',
-		'- Se o usuario nao deixar claro o texto do lembrete, use o proprio pedido resumido.',
+		'- Se o usuario nao deixar claro o texto do lembrete, seja como um interlocutor que o recorda, por exemplo: "Lembre-se de tal e tal coisa',
 		'Referencia de configuracao antiga (map.lock):',
 		$mapLock,
 		'Exemplos de reminders JSON:',
-		json_pretty($examples)
+        '{
+        "name": "example-telegram",
+        "description": "Exemplo de reminder de Telegram",
+        "final": "2026-04-16",
+        "i": 30,
+        "H": 8,
+        "d": [
+            1,
+            15
+        ],
+        "operations": [
+            {
+            "type": "telegram",
+            "message": "Lembrete de exemplo enviado pelo Sentinel Notify."
+            }
+        ]
+        }'
 	]);
 }
 

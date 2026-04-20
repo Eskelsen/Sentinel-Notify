@@ -143,7 +143,6 @@ function reminderScheduleSummary($reminder){
 
 function reminderCreateFromTelegramText($text, $chatId){
 	$request = implode("\n", [
-		'Chat ID: ' . $chatId,
 		'Pedido do usuario:',
 		trim((string) $text)
 	]);
