@@ -8,7 +8,8 @@ function openaiReminderSchema(){
 				'type' => 'array',
 				'items' => ['type' => 'integer'],
 				'minItems' => 1
-			]
+			],
+			['type' => 'null']
 		]
 	];
 
@@ -18,7 +19,7 @@ function openaiReminderSchema(){
 			'name' => ['type' => 'string'],
 			'description' => ['type' => 'string'],
 			'enabled' => ['type' => 'boolean'],
-			'final' => ['type' => 'string'],
+			'final' => ['type' => ['string', 'null']],
 			'i' => $multiInt,
 			'H' => $multiInt,
 			'd' => $multiInt,
@@ -42,19 +43,14 @@ function openaiReminderSchema(){
 								['type' => 'integer']
 							]
 						],
-						'parse_mode' => [
-							'anyOf' => [
-								['type' => 'string'],
-								['type' => 'boolean']
-							]
-						]
+						'parse_mode' => ['type' => 'boolean']
 					],
-					'required' => ['type', 'message', 'chat_id'],
+					'required' => ['type', 'message', 'chat_id', 'parse_mode'],
 					'additionalProperties' => false
 				]
 			]
 		],
-		'required' => ['name', 'description', 'enabled', 'operations'],
+		'required' => ['name', 'description', 'enabled', 'final', 'i', 'H', 'd', 'm', 'w', 'Y', 'operations'],
 		'additionalProperties' => false
 	];
 }
@@ -79,6 +75,7 @@ function openaiReminderSystemPrompt(){
 		"Timezone do servidor: {$timezone}.",
 		'Regras obrigatorias:',
 		'- Responda apenas com JSON valido seguindo o schema.',
+		'- Todos os campos do schema devem existir; quando um campo de agenda nao se aplicar, use null.',
 		'- O reminder deve ser salvo diretamente em app/reminders e executado pelo cron atual.',
 		'- Use operacao do tipo telegram.',
 		'- O campo operations[0].chat_id deve preservar exatamente o chat_id recebido.',
