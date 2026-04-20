@@ -134,6 +134,7 @@ function openaiExtractReminder($request){
 	]);
 
 	$response = curl_exec($curl);
+    microlog('openai: ' . $response);
 	$error = curl_error($curl);
 	$status = (int) curl_getinfo($curl, CURLINFO_RESPONSE_CODE);
 	curl_close($curl);
@@ -151,20 +152,29 @@ function openaiExtractReminder($request){
 		throw new RuntimeException('OpenAI retornou erro: ' . $message);
 	}
 
+	foreach ($data['output'] ?? [] as $output) {
+		foreach ($output['content'] ?? [] as $content) {
+			if (($content['type'] ?? '') === 'output_text') {
+				$text = trim((string) ($content['text'] ?? ''));
+				if ($text !== '') {
+					$decoded = json_decode($text, true);
+					if (is_array($decoded)) {
+						return $decoded;
+					}
+				}
+			}
+			if (($content['type'] ?? '') === 'refusal') {
+				$refusal = trim((string) ($content['refusal'] ?? ''));
+				throw new RuntimeException($refusal ?: 'A OpenAI recusou a solicitacao.');
+			}
+		}
+	}
+
 	$text = trim((string) ($data['output_text'] ?? ''));
 	if ($text !== '') {
 		$decoded = json_decode($text, true);
 		if (is_array($decoded)) {
 			return $decoded;
-		}
-	}
-
-	foreach ($data['output'] ?? [] as $output) {
-		foreach ($output['content'] ?? [] as $content) {
-			if (($content['type'] ?? '') === 'refusal') {
-				$refusal = trim((string) ($content['refusal'] ?? ''));
-				throw new RuntimeException($refusal ?: 'A OpenAI recusou a solicitacao.');
-			}
 		}
 	}
 
