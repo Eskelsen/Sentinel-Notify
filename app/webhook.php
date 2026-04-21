@@ -123,10 +123,10 @@ function reminderFileName($name){
 }
 
 function reminderCreateFromTelegramText($text, $chatId){
-	$request = implode("\n", [
-		'Pedido do usuario:',
-		trim((string) $text)
-	]);
+
+	$request = 'Pedido do usuario: ' . trim((string) $text);
+
+    microlog($request);
 
 	$parsed = openaiExtractReminder($request);
 	$reminder = reminderNormalizePayload($parsed, $chatId);

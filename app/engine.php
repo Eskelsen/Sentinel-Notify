@@ -29,6 +29,7 @@ function runReminderFile($file){
 	}
 	$schedule = reminderSchedule($reminder);
 	if (!shouldRunReminder($schedule)) {
+        microlog("Reminder $name para outro momento.");
 		return false;
 	}
 	$operations = reminderOperations($reminder);
@@ -42,7 +43,9 @@ function runReminderFile($file){
 	}
 	if ($sent) {
 		microlog("Reminder $name processado.");
-	}
+	} else {
+        microlog("Reminder $name falhou em seu processamento.");
+    }
 	return $sent;
 }
 

@@ -6,6 +6,9 @@
 define('MICRO_LOG', WEB . 'micrologs.txt');
 
 function microlog($msg, $file = MICRO_LOG){
+    if (php_sapi_name()=='cli') {
+        echo $msg . PHP_EOL;
+    }
 	$data = time() . '|' . date('Y-m-d H:i:s') . '|' . $msg . "\r\n";
 	file_put_contents($file, $data, FILE_APPEND);
 }

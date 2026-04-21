@@ -54,15 +54,18 @@ function openaiReminderSystemPrompt(){
 	$timezone = date_default_timezone_get();
 	$mapLock = is_file(APP . 'map.lock') ? trim(file_get_contents(APP . 'map.lock')) : '';
 
+    microlog('now: ' . $now);
+    microlog('timezone: ' . $timezone);
+
 	return implode("\n\n", [
 		'Voce converte pedidos em linguagem natural para arquivos JSON de lembretes do sistema Sentinel Notify.',
 		"Data/hora atual do servidor: {$now}.",
 		"Timezone do servidor: {$timezone}.",
 		'Regras obrigatorias:',
 		'- Responda apenas com JSON valido seguindo o schema.',
-		'- Se um campo de tempo não existir, não inclua na resposta.',
-		'- Respeite os padrões ECMA-404 e UTF-8',
-		'- Use parse_mode=false para texto puro e evitar problemas com HTML.',
+		'- Se um campo de tempo não existir, retorne seu valor como null.',
+		'- Use apenas o necessário, o restante dos campos deve ser null.',
+		'- Respeite os padrões ECMA-404 e UTF-8 assim como o horário e timezone do servidor',
 		'- Para lembrete unico, calcule uma data/horario exatos usando Y, m, d, H, i e final na mesma data.',
 		'- O campo final deve ser inclusivo e usar formato YYYY-MM-DD.',
 		'- O campo message deve conter apenas a mensagem final que sera enviada no horario do lembrete.',
@@ -74,10 +77,10 @@ function openaiReminderSystemPrompt(){
 		'Exemplos de reminders JSON:',
         '{
         "name": "example-telegram",
-        "description": "Exemplo de reminder de Telegram",
-        "final": "2026-04-16",
+        "description": "Lembrete via Telegram para caminhadas quinzenais para o fim de tarde até o fim do ano",
+        "final": "2026-12-31",
         "i": 30,
-        "H": 8,
+        "H": 16,
         "d": [
             1,
             15
@@ -85,7 +88,7 @@ function openaiReminderSystemPrompt(){
         "operations": [
             {
             "type": "telegram",
-            "message": "Lembrete de exemplo enviado pelo Sentinel Notify."
+            "message": "Lembre-se da caminhada agora à tarde."
             }
         ]
         }'
