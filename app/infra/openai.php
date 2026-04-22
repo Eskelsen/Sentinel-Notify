@@ -64,6 +64,7 @@ function openaiReminderSystemPrompt(){
 		'Regras obrigatorias:',
 		'- Responda apenas com JSON valido seguindo o schema.',
 		'- Se um campo de tempo não existir, retorne seu valor como null.',
+		'- Geralmente H e i deve existir, pro lembrete não ficar repetindo o tempo todo. O lembrete geralmente é regular e pontual num intervalo e frequência específicos.',
 		'- Use apenas o necessário, o restante dos campos deve ser null.',
 		'- Respeite os padrões ECMA-404 e UTF-8 assim como o horário e timezone do servidor',
 		'- Para lembrete unico, calcule uma data/horario exatos usando Y, m, d, H, i e final na mesma data.',
