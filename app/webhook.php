@@ -168,7 +168,7 @@ function handleTelegramWebhook(){
 	try {
         
 		$created = reminderCreateFromTelegramText($text, $chatId);
-		$reply = 'Lembrete salvo com sucesso.';
+		$reply = 'Lembrete salvo com sucesso: ' . json_encode($created['reminder'], JSON_PRETTY_PRINT); // tmp
 
 		tgSendMgs($reply, [
 			'chat_id' => $chatId,
