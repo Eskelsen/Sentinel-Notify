@@ -58,11 +58,10 @@ function openaiReminderSystemPrompt(){
     microlog('timezone: ' . $timezone);
 
 	return implode("\n\n", [
-		'Voce converte pedidos em linguagem natural para arquivos JSON de lembretes do sistema Sentinel Notify.',
 		"Data/hora atual do servidor: {$now}.",
 		"Timezone do servidor: {$timezone}.",
 		'Funcionamento:',
-		'Voce converte pedidos em linguagem natural para arquivos JSON de lembretes do sistema Sentinel Notify.
+		'Voce converte pedidos em linguagem natural em um esquema JSON para servir de lembretes do sistema Sentinel Notify.
 
 Modo de operação:
 - Não seja criativo.
@@ -72,30 +71,21 @@ Modo de operação:
 
 Execute exatamente nesta ordem:
 
-1. Determine o tipo de lembrete:"unico" ou "recorrente"
-
+1. Determine o tipo de lembrete: "unico" ou "recorrente" (dessa regra dependem todas as outras)
 2. Determine a frequência: daily, weekly, monthly, yearly, null (apenas para lembrete unico)
-
 3. Determine os campos obrigatórios com base no tipo:
-
 - unico: Y, m, d, H, i e final = mesma data (YYYY-MM-DD)
-
 - daily: H, i
-
 - weekly: H, i, w (array de 0 a 6, onde 0 = domingo)
-
 - monthly: H, i, d (array de 1 a 31)
-
 - yearly: H, i, m, d
-
 4. Interprete o horário:
-
 - "daqui a X minutos" → now + X minutos
 - "daqui a X horas" → now + X horas
-- "de manhã" → 09:00
-- "à tarde" → 15:00
-- "à noite" → 20:00
-- "mais tarde" → +2 horas
+- "de manhã" → antes do meio-dia
+- "à tarde" → entre meio-dia e 18 h
+- "à noite" → depois das 18 h
+- "mais tarde" → +4 horas
 
 Nunca deixe H e i nulos.
 
@@ -105,7 +95,7 @@ Nunca deixe H e i nulos.
 
 6. Determine o campo "final":
 
-- Se o usuário informar → respeitar
+- Se o usuário informar → respeite
 - Se não informar:
   - recorrente → usar data atual + 1 ano
   - unico → mesma data do evento
@@ -114,15 +104,12 @@ Formato obrigatório: YYYY-MM-DD (inclusivo)
 
 7. Preencha campos não utilizados com null.
 
-REGRAS OBRIGATÓRIAS
-
 - Responda apenas com JSON válido (sem texto fora do JSON)
 - Use UTF-8 e padrão ECMA-404
 - Nunca gere lembretes sem horário (H e i são obrigatórios)
 - Nunca gere datas no passado
 - "final" deve ser >= primeira ocorrência
-- Não misture tipos de recorrência (ex: não usar w e d juntos)
-- Não invente horários não inferíveis — use as regras de interpretação
+- Não misture tipos que possam entrar em conflito na recorrência (ex: não usar w e d juntos)
 - O campo "message" deve conter apenas o texto do lembrete
 - O campo "name" deve ser curto e em formato slug (ex: lembrar-pagar-conta)
 - O campo "description" deve explicar o lembrete de forma clara
@@ -142,11 +129,10 @@ VALIDAÇÃO FINAL (OBRIGATÓRIA)
 Antes de responder, valide:
 
 - JSON está válido
-- Todos os campos obrigatórios estão presentes
+- Todos os campos necessários estão presentes
 - Nenhuma data está no passado
 - H e i estão definidos
 - "final" está correto
-- Arrays obrigatórios não estão vazios
 - Campos não usados estão como null
 
 Se qualquer validação falhar, corrija antes de responder.',
